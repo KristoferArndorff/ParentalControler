@@ -1,6 +1,7 @@
 ﻿using Common.Data;
 using Common.Data.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Parent.Areas.Account
 {
@@ -16,12 +17,12 @@ namespace Api.Parent.Areas.Account
             _dataContext = dataContext;
         }
 
-        [Route("")]
+        [Route("{id}")]
         [HttpGet]
-        public async Task<ParentDto> GetParent()
+        public async Task<ParentDto> GetParent(int id)
         {
 
-            var parent = _dataContext.Parents.Where(x => !x.Deleted.HasValue).FirstOrDefault();
+            var parent = await _dataContext.Parents.Where(x => !x.Deleted.HasValue).FirstOrDefaultAsync(x => x.Id == id);
 
             if(parent == null)
             {
@@ -37,6 +38,22 @@ namespace Api.Parent.Areas.Account
                 Deleted = parent.Deleted,
                 Updated = parent.Updated
             };
+        }
+
+        [Route("")]
+        [HttpGet]
+        public async Task<List<ParentDto>> GetParents()
+        {
+
+            return await _dataContext.Parents.Where(x => !x.Deleted.HasValue).Select(parent => new ParentDto
+            {
+                Name = parent.Name,
+                Email = parent.Email,
+                Id = parent.Id,
+                Created = parent.Created,
+                Deleted = parent.Deleted,
+                Updated = parent.Updated
+            }).ToListAsync();
         }
 
         [Route("")]
