@@ -21,7 +21,7 @@ namespace Api.Parent.Areas.Account
         public async Task<ParentDto> GetParent()
         {
 
-            var parent = _dataContext.Parents.FirstOrDefault();
+            var parent = _dataContext.Parents.Where(x => !x.Deleted.HasValue).FirstOrDefault();
 
             if(parent == null)
             {
