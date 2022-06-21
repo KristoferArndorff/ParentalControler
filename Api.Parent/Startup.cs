@@ -25,7 +25,7 @@ namespace Api.Parent
 
             services.AddDbContext<BaseDataContext>(options =>
             {
-                options.UseNpgsql(connectionString: "User Id=postgres;Password=YcuQP24i;Host=localhost;Port=5432;Database=mahdb;Pooling=true;Maximum Pool Size=50;Keepalive=30;", 
+                options.UseNpgsql(connectionString: "User Id=postgres;Password=12345;Host=localhost;Port=5432;Database=mahdb;Pooling=true;Maximum Pool Size=50;Keepalive=30;", 
                     builder => builder.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery));
             }
             );

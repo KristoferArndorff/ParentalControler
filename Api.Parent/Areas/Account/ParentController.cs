@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Parent.Areas.Account
 {
 
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     public class ParentController : Controller
     {
 
